@@ -1,0 +1,61 @@
+body{
+
+color: white;
+}
+.title{
+
+	padding: 15px;
+}
+.contenedor-login{
+
+	float: left;
+	display: flex;
+}
+.login{
+
+	float: right;
+	width: 50%;
+	margin: 5%;
+}
+
+.login input{
+
+	opacity: .40;
+	border-radius: 5px;
+	border: none;
+	padding: 5%;
+	width: 100%;
+	display: flex;
+	margin: 5%;
+}
+
+.login button{
+
+	border-radius: 5px;
+	border: none;
+	padding: 5%;
+	width: 100%;
+	display: flex;
+	margin: 5%;
+	text-align: center;
+}
+.mapa-login{
+
+	width: 50%;
+}
+.mapa-login img{
+
+	margin-left: 10%;
+	margin-top: 5%;
+	width: 90%;
+	height: 80%;
+}
+
+.marker{
+
+	background-image: url("{{ asset ('app_assets/imagenes/estadio.png') }}");
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}

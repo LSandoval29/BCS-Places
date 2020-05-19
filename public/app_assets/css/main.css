@@ -1,0 +1,74 @@
+body{
+	color: white;
+	margin:0;
+	padding:0;
+}
+.title{
+
+	padding: 15px;
+}
+.contenedor-login{
+
+	float: left;
+	display: flex;
+}
+.login{
+
+	float: right;
+	width: 50%;
+	margin: 5%;
+}
+
+.login input{
+
+	opacity: .40;
+	border-radius: 5px;
+	border: none;
+	padding: 5%;
+	width: 100%;
+	display: flex;
+	margin: 5%;
+}
+
+.login button{
+
+	border-radius: 5px;
+	border: none;
+	padding: 5%;
+	width: 100%;
+	display: flex;
+	margin: 5%;
+	text-align: center;
+}
+.mapa-login{
+
+	width: 50%;
+}
+.mapa-login img{
+
+	margin-left: 10%;
+	margin-top: 5%;
+width: 90%;
+height: 80%;
+}
+
+#map { position: absolute; top: 1; bottom: 1; width: 100%; height: 100vh }
+
+.marker {
+	background-image: url('../imagenes/estadio.png');
+	background-size: cover;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 200;
+}
+
+.mapboxgl-popup {
+	max-width: 200px;
+  }
+
+.mapboxgl-popup-content {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+}
