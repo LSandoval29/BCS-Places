@@ -74,16 +74,22 @@ class LugarController extends Controller
     public function update(Request $request, $id){
 
         $lugarActualizado = Lugar::findOrFail($id);
+
         if($request->hasFile('imagen')){
-            $lugarActualizado['imagen']= $request->file('imagen')->store('uploads','public');
-            $lugarActualizado->imagen = $request->imagen;
+            $file = $request->file('imagen');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/images_places/',$name);
         }
+
+        $lugarActualizado->municipioId = $request->municipioId;
+        $lugarActualizado->categoriaId = $request->categoriaId;
         $lugarActualizado->nombre = $request->nombre;
         $lugarActualizado->direccion = $request->direccion;
         $lugarActualizado->paginaWeb = $request->paginaWeb;
         $lugarActualizado->horario = $request->horario;
         $lugarActualizado->numTelefono = $request->numTelefono;
         $lugarActualizado->descripcion = $request->descripcion;
+        $lugarActualizado->imagen = $name;
         $lugarActualizado->latitud = $request->latitud;
         $lugarActualizado->longitud = $request->longitud;
 
