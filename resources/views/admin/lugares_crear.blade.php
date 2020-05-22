@@ -86,7 +86,7 @@
                   <label for="exampleInputPassword1">Imagen:</label>
                   <div class="input-group mb-3">
                 
-                      <input type="file" name="imagen" id="imagen" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                      <input type="file" name="imagen" id="imagen" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
                   </div>
               </div>
               <div class="form-group">

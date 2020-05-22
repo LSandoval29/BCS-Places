@@ -41,13 +41,27 @@ class LugarController extends Controller
 
     public function store(Request $request){//Función para el agregar:
 
-        $datosLugar = request()->all();
-        $datosLugar = request()->except('_token');
-
         if($request->hasFile('imagen')){
-            $datosLugar['imagen']= $request->file('imagen')->store('uploads','public');
+            $file = $request->file('imagen');
+            $name = time().$file->getClientOriginalName();
+            $file->move(public_path().'/images_places/',$name);
         }
-        Lugar::insert($datosLugar);
+
+        $lugar = new Lugar();
+        $lugar->municipioId = $request->municipioId;
+        $lugar->categoriaId = $request->categoriaId;
+        $lugar->nombre = $request->nombre;
+        $lugar->direccion = $request->direccion;
+        $lugar->paginaWeb = $request->paginaWeb;
+        $lugar->horario = $request->horario;
+        $lugar->numTelefono = $request->numTelefono;
+        $lugar->descripcion = $request->descripcion;
+        $lugar->imagen = $name;
+        $lugar->latitud = $request->latitud;
+        $lugar->longitud = $request->longitud;
+
+        $lugar->save();
+        
         return back()->with('mensaje','Lugar agregado con exíto.');
     }
 

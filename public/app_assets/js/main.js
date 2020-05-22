@@ -118,8 +118,7 @@ function getInfoPlace(id){
 		url: 'getPlacesById/'+id
 	}).then(respuesta => {
 
-		console.log(respuesta.data[0].imagen)
-		img_lugar.src = "../imagenes/estadio.png";
+		img_lugar.src = "../images_places/"+respuesta.data[0].imagen+"";
 		name_lugar.innerHTML = respuesta.data[0].nombre;
 		descripcion_place.innerHTML = respuesta.data[0].descripcion;
 		domicilio_place.innerHTML = respuesta.data[0].direccion;
