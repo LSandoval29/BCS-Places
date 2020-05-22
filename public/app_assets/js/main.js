@@ -1,47 +1,70 @@
+//Variables usadas :
+let img_lugar = document.getElementById('img-lugar');
+let name_lugar = document.getElementById('name-lugar');
+let category_place = document.getElementById('category-place');
+let municipio_place = document.getElementById('municipio-place');
+let descripcion_place = document.getElementById('descripcion-place');
+let domicilio_place = document.getElementById('domicilio-place');
+let num_place = document.getElementById('num-place');
+let web_place = document.getElementById('web-place');
+let horario_place = document.getElementById('horario-place');
+let sidebar = document.querySelector('.sidebar');
+var map=null;
+var markers=null;
+var cityActual=null;
 //variable que guarda los markers
-var currentMarkers = []
+var currentMarkers = [];
+
 function makeMap(){
 	mapboxgl.accessToken = 'pk.eyJ1Ijoiamhtd2lsbGFycyIsImEiOiJja2EydW1mMWIwOG81M2V0YjNuaDZwcmdsIn0.bk6lHmzR3zuGMg8LADBNlw';
-	var map = new mapboxgl.Map({
+	map = new mapboxgl.Map({
 		container: 'map',
 		style: 'mapbox://styles/mapbox/streets-v11',
 		center: [-112.5, 25.5], // starting position [lng, lat],
 		zoom:6,
 		boxZoom:true
 	})
+}
 
-	var geojson = {
-		type: 'FeatureCollection',
-		features: [{
-		  type: 'Feature',
-		  geometry: {
-			type: 'Point',
-			coordinates: [-110.312999, 24.161702]
-		  },
-		  properties: {
-			title: 'Mapbox',
-			description: 'Washington, D.C.'
-		  }
-		},
-		{
-		  type: 'Feature',
-		  geometry: {
-			type: 'Point',
-			coordinates: [-110.3031, 24.157038]
-		  },
-		  properties: {
-			title: 'Mapbox',
-			description: 'San Francisco, California'
-		  }
-		}]
-	};
+function printCities(){
+	//obtener json con info de los municipios
+	var data_cities = this.geojsonDataCities()
+	//Funcion para pintar en el mapa los municipios de colores
+	map.on('load', function() {
 
+
+		this.addSource('cities', {
+			'type': 'geojson',
+			'data': data_cities
+		});
+
+		//Colores de los municipios:
+		const colors = { "property": "id", "stops": [ [0, 'white'], [1, 'orange'], [2, 'violet'], [3, 'red'], [4, 'blue'], [5, 'green'] ] };
+
+		this.addLayer({
+			'id': 'cities-fill',
+			'type': 'fill',
+			'source': 'cities',
+			'layout': {},
+			'paint': {
+				'fill-color': colors,
+				'fill-opacity': 0.5
+			}
+		});
+		
+	});
+	
+}
+
+function makeMarkers(){
 	axios({
 		method:'GET',
 		url: 'getAllPlaces/'
 	}).then(respuesta=>{
+
+		const places = respuesta.data;
 		
-		for(const lugar of respuesta.data){
+		for(const lugar of places){
 
 			let el = document.createElement('div');
 			el.className = 'marker';
@@ -52,40 +75,61 @@ function makeMap(){
 				lat:lugar.latitud
 			})
 			.addTo(map);
+
+			el.addEventListener('click', function (){
+				getInfoPlace(lugar.id)
+			});
 		}
 		
 
 	}).catch(err=> console.log(err));
 }
-/*function makeMarkers(){
-	
 
+function clickCity(){
+
+	map.on('click', 'cities-fill', function(e) {
+
+		if(cityActual != e.features[0].properties.id){
+
+			cityActual = e.features[0].properties.id
+			console.log(cityActual)
+			makeMarkers(e.features[0].properties.id)
+
+			//sidebar.classList.remove("hide-sidebar")
+			//sidebar.classList.add("show-sidebar")
+
+			//cambiar la vista al mapa
+			this.flyTo({
+				center: [
+					e.features[0].properties.viewLatitud,
+					e.features[0].properties.viewLongitud
+				],
+				essential: true,
+				speed: 0.3,
+				zoom: e.features[0].properties.zoom
+			});
+		}
+	})
+}
+
+function getInfoPlace(id){
 	axios({
 		method:'GET',
-		url: '/getPlacesById/'+2
-	}).then(respuesta=>{
-		
-		for(const lugar of respuesta.data){
+		url: 'getPlacesById/'+id
+	}).then(respuesta => {
 
-			//console.log(lugar.latitud);
-			//console.log(lugar.longitud);
+		console.log(respuesta.data[0].imagen)
+		img_lugar.src = "../imagenes/estadio.png";
+		name_lugar.innerHTML = respuesta.data[0].nombre;
+		descripcion_place.innerHTML = respuesta.data[0].descripcion;
+		domicilio_place.innerHTML = respuesta.data[0].direccion;
+		num_place.innerHTML = respuesta.data[0].numTelefono;
+		web_place.innerHTML = respuesta.data[0].paginaWeb;
+		horario_place.innerHTML = respuesta.data[0].horario;
 
+	}).catch(err => console.log(err));
+}
 
-			let el = document.createElement('div');
-			el.className = 'marker';
-			//el.style.backgroundImage = url('./imagenes/estadio.png');
-
-			let oneMarker = new mapboxgl.Marker(el)
-			.setLngLat({
-				lng:lugar.latitud,
-				lat:lugar.longitud
-			})
-			.add(this.map)
-		}
-		
-
-	}).catch(err=> console.log(err));
-}*/
 function geojsonDataCities(){
 	const data = {
 			"type": "FeatureCollection",
@@ -93,9 +137,7 @@ function geojsonDataCities(){
 					{
 					  "properties": {
 						  "id": 1,
-						  "name": "Mulege",
-						  "url_foto": "mulege.jpeg",
-						  "logo": "mulege-logo.jpg",
+						  "name": "La Paz",
 						  "viewLatitud": -111.98240162057033,
 						"viewLongitud": 26.891017395541013,
 						"zoom": 14
@@ -223,9 +265,7 @@ function geojsonDataCities(){
 					{
 					  "properties": {
 						  "id": 2,
-						  "name": "Comondu",
-						  "url_foto": "comondu.jpg",
-						  "logo": "comondu-logo.jpg",
+						  "name": "Los Cabos",
 						  "viewLatitud": -111.65219858666967,
 						"viewLongitud": 25.032652350767933,
 						"zoom": 13
@@ -473,9 +513,7 @@ function geojsonDataCities(){
 					{
 					  "properties": {
 						  "id": 3,
-						  "name": "Loreto",
-						  "url_foto": "loreto.jpg",
-						  "logo": "loreto-logo.png",
+						  "name": "Comondú",
 						  "viewLatitud": -111.35095378732757,
 						"viewLongitud": 26.009251489501025,
 						"zoom": 13
@@ -719,9 +757,7 @@ function geojsonDataCities(){
 					{
 					  "properties": {
 						  "id": 4,
-						  "name": "La Paz",
-						  "url_foto": "paz.jpg",
-						  "logo": "paz-logo.png",
+						  "name": "Loreto",
 						  "viewLatitud": -110.30370345205722,
 						"viewLongitud": 24.138634649350692,
 						"zoom": 13
@@ -886,9 +922,7 @@ function geojsonDataCities(){
 					{
 						"properties": {
 						  "id": 5,
-						"name": "Los Cabos",
-						"url_foto": "cabos.jpg",
-						"logo": "cabos-logo.png",
+						"name": "Múlege",
 						"viewLatitud": -109.91386855307411,
 						"viewLongitud": 22.892273767112485,
 						"zoom": 13
@@ -1710,7 +1744,11 @@ function geojsonDataCities(){
 
 window.onload = function(){
 	this.makeMap();
-	//this.makeMarkers();
+	this.printCities();
+	this.makeMarkers();
+	this.clickCity()
+	
+	
 }
 
 
