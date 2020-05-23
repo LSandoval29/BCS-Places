@@ -53,7 +53,7 @@
                                     <form action="{{route('eliminar_lugar', $lugar)}}" method="POST" class="d-inline">
                                         @method('DELETE')
                                         @csrf
-                                        <button class="btn btn-circle btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                                        <button class="btn btn-circle btn-danger" type="submit" ><i class="fas fa-trash"></i></button>
                                     </form>
                                 </div>
                             </td>
