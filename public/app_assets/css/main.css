@@ -43,7 +43,7 @@ body{
 	margin: 5%;
 }
 
-.sidebar {
+/*.sidebar {
 	overflow: auto;
 	position: absolute;
 	background-color: white;
@@ -54,7 +54,7 @@ body{
 	bottom: 0px;
 	top: 0px;
 	z-index: 300;
-}
+}*/
 
 .sidebar img{
 width: 100%;
@@ -76,26 +76,6 @@ padding-left: 5%;
 
 .sidebar hr{
 margin: 0;
-}
-
-/* width */
-::-webkit-scrollbar {
-width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-background: #f1f1f1; 
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-background: #888; 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-background: #555; 
 }
 
 #btn-close{
@@ -176,7 +156,7 @@ margin-top: -1%;
 	left: -30%;
 	transition: all linear .3s;
 }
-
+/************************************************************************************************/
 .login input{
 
 	opacity: .40;
@@ -198,10 +178,12 @@ margin-top: -1%;
 	margin: 5%;
 	text-align: center;
 }
+
 .mapa-login{
 
 	width: 50%;
 }
+
 .mapa-login img{
 
 margin-left: 10%;

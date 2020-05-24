@@ -20,8 +20,8 @@
 
 
 	<div id="map"></div>
-	<div class="list-group float-left">
-		<div>
+	<div class="list-group float-left" id="sidebar-places">
+		<div class="sidebar">
 			<img id ="img-lugar" alt="image" class="list-group-item col-sm-6">
 		</div>
 		<ul class="list-group">
@@ -34,7 +34,7 @@
 		</ul>
 	</div>
 	
-	<div class="list-group float-right">
+	<div class="list-group float-right" id="categories">
 		  <button type="button" class="list-group-item list-group-item-action" style="background-color:#2898bf;">
 		  	<h3 class="h3">Categorias</h3>
 		  </button>

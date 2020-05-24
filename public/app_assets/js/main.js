@@ -9,11 +9,19 @@ let num_place = document.getElementById('num-place');
 let web_place = document.getElementById('web-place');
 let horario_place = document.getElementById('horario-place');
 let sidebar = document.querySelector('.sidebar');
+let sidebar_places = document.getElementById('sidebar-places');
+let categories = document.getElementById('categories');
 var map=null;
 var markers=null;
 var cityActual=null;
 //variable que guarda los markers
 var currentMarkers = [];
+
+function ocultarSidebar(){
+	
+	sidebar_places.style.display = "none";
+	categories.style.display = "none";
+}
 
 function makeMap(){
 	mapboxgl.accessToken = 'pk.eyJ1Ijoiamhtd2lsbGFycyIsImEiOiJja2EydW1mMWIwOG81M2V0YjNuaDZwcmdsIn0.bk6lHmzR3zuGMg8LADBNlw';
@@ -39,7 +47,7 @@ function printCities(){
 		});
 
 		//Colores de los municipios:
-		const colors = { "property": "id", "stops": [ [0, 'white'], [1, 'violet'], [2, 'orange'], [3, 'red'], [4, 'blue'], [5, 'green'] ] };
+		const colors = { "property": "id", "stops": [ [0, 'white'], [1, 'green'], [2, 'red'], [3, 'orange'], [4, 'violet'], [5, 'blue'] ] };
 
 		this.addLayer({
 			'id': 'cities-fill',
@@ -77,6 +85,7 @@ function makeMarkers(){
 			.addTo(map);
 
 			el.addEventListener('click', function (){
+				sidebar_places.style.display="block";
 				getInfoPlace(lugar.id)
 			});
 		}
@@ -94,9 +103,12 @@ function clickCity(){
 			cityActual = e.features[0].properties.id
 			console.log(cityActual)
 			//makeMarkers(e.features[0].properties.id)
+			
+			setTimeout(function(){
+				
+				categories.style.display="block"
 
-			//sidebar.classList.remove("hide-sidebar")
-			//sidebar.classList.add("show-sidebar")
+			}, 10000);
 
 			//cambiar la vista al mapa
 			this.flyTo({
@@ -1752,6 +1764,8 @@ function geojsonDataCities(){
 }
 
 window.onload = function(){
+
+	this.ocultarSidebar();
 	this.makeMap();
 	this.printCities();
 	this.makeMarkers();
