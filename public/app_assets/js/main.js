@@ -1,7 +1,7 @@
 //Variables usadas :
 let img_lugar = document.getElementById('img-lugar');
 let name_lugar = document.getElementById('name-lugar');
-let category_place = document.getElementById('category-place');
+let name_category = document.getElementById('name-category');
 let municipio_place = document.getElementById('municipio-place');
 let descripcion_place = document.getElementById('descripcion-place');
 let domicilio_place = document.getElementById('domicilio-place');
@@ -20,7 +20,7 @@ var currentMarkers = [];
 function ocultarSidebar(){
 	
 	sidebar_places.style.display = "none";
-	categories.style.display = "none";
+	//categories.style.display = "none";
 }
 
 function makeMap(){
@@ -64,10 +64,10 @@ function printCities(){
 	
 }
 
-function makeMarkers(){
+function makeMarkers(city_id){
 	axios({
 		method:'GET',
-		url: 'getAllPlaces/'
+		url: 'getPlaces/'+city_id
 	}).then(respuesta=>{
 
 		const places = respuesta.data;
@@ -100,17 +100,16 @@ function clickCity(){
 
 		if(cityActual != e.features[0].properties.id){
 
-			cityActual = e.features[0].properties.id
-			console.log(cityActual)
-			//makeMarkers(e.features[0].properties.id)
-			
-			setTimeout(function(){
+			cityActual = e.features[0].properties.id//Pasamos el id de la ciudad actual seleccionada
+			makeMarkers(e.features[0].properties.id)//Le pasamos a la funcion el id de la ciudad seleccionada
+
+			/*setTimeout(function(){
 				
 				categories.style.display="block"
 
-			}, 10000);
+			}, 10000);*/
 
-			//cambiar la vista al mapa
+			//Cambiar la vista al mapa
 			this.flyTo({
 				center: [
 					e.features[0].properties.viewLatitud,
@@ -130,8 +129,10 @@ function getInfoPlace(id){
 		url: 'getPlacesById/'+id
 	}).then(respuesta => {
 
+		//Actualizamos el sidebar con la informacion de la peticion:
 		img_lugar.src = "../images_places/"+respuesta.data[0].imagen+"";
 		name_lugar.innerHTML = respuesta.data[0].nombre;
+		name_category.innerHTML = respuesta.data[0].categoria.nombre
 		descripcion_place.innerHTML = respuesta.data[0].descripcion;
 		domicilio_place.innerHTML = respuesta.data[0].direccion;
 		num_place.innerHTML = respuesta.data[0].numTelefono;

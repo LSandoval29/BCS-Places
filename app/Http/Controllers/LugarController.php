@@ -35,7 +35,7 @@ class LugarController extends Controller
     }
 
     public function getPlacesById($id){
-        $lugares = Lugar::where('id', $id)->get();//Obtengo los lugares por su id
+        $lugares = Lugar::where('id', $id)->with('categoria')->get();//Obtengo los lugares por su id
         return $lugares;
     }
 

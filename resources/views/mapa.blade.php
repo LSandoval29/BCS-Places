@@ -26,6 +26,7 @@
 		</div>
 		<ul class="list-group">
 		  <li class="col-sm-6 list-group-item "style="background-color:#2898bf;"><h3 class="h3" id="name-lugar"></h3></li>
+		  <li class="col-sm-6 list-group-item"><h7 class="h5" id="name-category"></h7></li>
 		  <li class="col-sm-6 list-group-item" id="descripcion-place"></li>
 		  <li class="col-sm-6 list-group-item" id="domicilio-place"></li>
 		  <li class="col-sm-6 list-group-item" id="num-place"></li>
@@ -34,7 +35,7 @@
 		</ul>
 	</div>
 	
-	<div class="list-group float-right" id="categories">
+	<!--<div class="list-group float-right" id="categories">
 		  <button type="button" class="list-group-item list-group-item-action" style="background-color:#2898bf;">
 		  	<h3 class="h3">Categorias</h3>
 		  </button>
@@ -47,7 +48,7 @@
 		  <button type="button" class="list-group-item list-group-item-action">Supermercados</button>
 		  <button type="button" class="list-group-item list-group-item-action">Playas</button>
 		  <button type="button" class="list-group-item list-group-item-action">Club Nocturnos</button>
-	</div>
+	</div>-->
 
 
 
