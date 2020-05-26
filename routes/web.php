@@ -4,7 +4,7 @@ use App\Lugar;
 
 
 Route::get('/', function () {//Vista raíz
-    return view('auth.login');
+    return view('mapa');
 });
 
 Route::get('/mapa', function () {//Sera la vista donde salga el mapa.
@@ -18,7 +18,7 @@ Route::get('/login', function () {//Vista del login.
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');//Ruta cuando se hace login.
-Route::get('/lugares.crear', 'lugarController@index')->name('lugares.crear');//Ruta cuando se hace login.
+Route::get('/lugares.crear', 'lugarController@index')->name('lugares.crear');//Ruta que muestra el formulario de crear
 
 
 //Municipios:

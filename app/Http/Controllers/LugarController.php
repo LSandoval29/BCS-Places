@@ -7,8 +7,8 @@ use App\Lugar;
 use App\Municipio;
 use App\Categoria;
 
-class LugarController extends Controller
-{
+class LugarController extends Controller{
+
     public function index(){
         return view('admin.lugares_crear');
     }
@@ -19,7 +19,7 @@ class LugarController extends Controller
     }
     //Funcion para hacer la consulta de los lugares que pertenecen a el municipio clickeado:
     public function getPlacesByMunicipio($id){
-        $lugares = Lugar::where('municipioId', $id)->get();//obtengo los lugares que pertenecen al municipio 
+        $lugares = Lugar::where('municipioId', $id)->with('municipio')->get();//obtengo los lugares que pertenecen al municipio 
         return view('admin.lugares_crud',compact('lugares'));
     }
 
@@ -77,8 +77,10 @@ class LugarController extends Controller
 
         if($request->hasFile('imagen')){
             $file = $request->file('imagen');
-            $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/images_places/',$name);
+            $name = time().$file->getClientOriginalName();//Le ponemos el nombre a la imagen que recibimos, mas la fecha
+            $file->move(public_path().'/images_places/',$name);//Movemos la imagen recibida a la carpeta images_places
+        }else{
+            $name = $lugarActualizado->imagen;
         }
 
         $lugarActualizado->municipioId = $request->municipioId;

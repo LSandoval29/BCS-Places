@@ -11,7 +11,7 @@
 
   <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h5 class="m-0 font-weight-bold" style="color:#2898bf;">{{$section_name}}</h5>
+        <h3 class="m-0 font-weight-bold" style="color:#2898bf;">{{$section_name}}</h3>
       </div>
       <div class="col-md-12">
             <div class="card-body">
