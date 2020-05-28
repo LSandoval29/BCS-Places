@@ -14,6 +14,7 @@ let categories = document.getElementById('categories');
 var map=null;
 var markers=null;
 var cityActual=null;
+var markers = null;
 //variable que guarda los markers
 var currentMarkers = [];
 
@@ -88,7 +89,12 @@ function makeMarkers(city_id){
 				sidebar_places.style.display="block";
 				getInfoPlace(lugar.id)
 			});
+
+			currentMarkers.push(oneMarker)//Agregamos al arreglo los marcadores
 		}
+
+		//guardar los marcadores(para luego ocultarlos)
+		markers = document.querySelectorAll('.marker')
 		
 
 	}).catch(err=> console.log(err));
@@ -103,11 +109,7 @@ function clickCity(){
 			cityActual = e.features[0].properties.id//Pasamos el id de la ciudad actual seleccionada
 			makeMarkers(e.features[0].properties.id)//Le pasamos a la funcion el id de la ciudad seleccionada
 
-			/*setTimeout(function(){
-				
-				categories.style.display="block"
-
-			}, 10000);*/
+			cleanMarkers();//Limpiamos los marcadores para que no aparezcan al seleccionar otra ciudad
 
 			//Cambiar la vista al mapa
 			this.flyTo({
@@ -121,6 +123,18 @@ function clickCity(){
 			});
 		}
 	})
+}
+
+function cleanMarkers(){
+
+	if(currentMarkers.length>0){
+		for (var i = currentMarkers.length - 1; i >= 0; i--) {
+			//Removemos los markers
+			currentMarkers[i].remove()
+			//Eliminar marker del array
+			currentMarkers.splice(i,1)
+		}		
+	}
 }
 
 function getInfoPlace(id){
