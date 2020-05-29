@@ -21,7 +21,7 @@ var currentMarkers = [];
 function ocultarSidebar(){
 	
 	sidebar_places.style.display = "none";
-	//categories.style.display = "none";
+	categories.style.display = "none";
 }
 
 function makeMap(){
@@ -111,6 +111,13 @@ function clickCity(){
 
 			cleanMarkers();//Limpiamos los marcadores para que no aparezcan al seleccionar otra ciudad
 
+			//Despues de 10 segundo aparecera el card de categories:
+			setTimeout(function(){
+				
+				categories.style.display="block";
+
+			}, 10000);
+
 			//Cambiar la vista al mapa
 			this.flyTo({
 				center: [
@@ -135,6 +142,44 @@ function cleanMarkers(){
 			currentMarkers.splice(i,1)
 		}		
 	}
+}
+
+function markersByCategory(id_category){
+
+	cleanMarkers()
+
+	axios({
+		method:'GET',
+		url: 'getPlacesByCategory/'+cityActual+'/'+id_category
+	}).then(respuesta=>{
+
+		const places = respuesta.data;
+		
+		for(const lugar of places){
+
+			let el = document.createElement('div');
+			el.className = 'marker';
+			//el.style.backgroundImage = url('./imagenes/estadio.png');
+			let oneMarker = new mapboxgl.Marker(el)
+			.setLngLat({
+				lng:lugar.longitud,
+				lat:lugar.latitud
+			})
+			.addTo(map);
+
+			el.addEventListener('click', function (){
+				sidebar_places.style.display="block";
+				getInfoPlace(lugar.id)
+			});
+
+			currentMarkers.push(oneMarker)//Agregamos al arreglo los marcadores
+		}
+
+		//guardar los marcadores(para luego ocultarlos)
+		markers = document.querySelectorAll('.marker')
+		
+
+	}).catch(err=> console.log(err));
 }
 
 function getInfoPlace(id){

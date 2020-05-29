@@ -29,8 +29,8 @@ class LugarController extends Controller{
         return $places;
     }
 
-    public function getPlacesByCategory($id){
-        $lugares = Lugar::where('categoriaId', $id)->get();//obtengo los lugares que pertenecen a la categoria
+    public function getPlacesByCategory($idMunicipio,$idCategory){
+        $lugares = Lugar::where('municipioId', $idMunicipio)->where('categoriaId',$idCategory)->get();//obtengo los lugares que pertenecen a la categoria y al municipio seleccionado
         return $lugares;
     }
 

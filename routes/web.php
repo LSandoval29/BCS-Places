@@ -28,7 +28,7 @@ Route::get('/municipios/', 'MunicipioController@index')->name('municipio');//Rut
 Route::get('/municipio/{id}', 'LugarController@getPlacesByMunicipio')->name('lugar_municipio');//Ruta para obtener los lugares que pertenecen a un municipio especifico(Vista)
 Route::get('/getPlaces/{id}', 'LugarController@getPlaces')->name('getPlaces');//Ruta para obtener los lugares que pertenecen a un municipio especifico
 Route::get('/getPlacesById/{id}', 'LugarController@getPlacesById')->name('get_places_by_id');//Ruta para obtener los lugares por id
-Route::get('/getPlacesByCategory/{id}', 'LugarController@getPlacesByCategory')->name('get_places_by_category');//Ruta para obtener los lugares por categoria
+Route::get('/getPlacesByCategory/{idMunicipio}/{idCategory}', 'LugarController@getPlacesByCategory')->name('get_places_by_category');//Ruta para obtener los lugares por categoria
 Route::get('/getAllPlaces/', 'LugarController@getAllPlaces')->name('getAllPlaces');
 
 Route::get('/categorias', 'CategoriaController@index')->name('categorias');//Ruta para obtener todas las categorias.
