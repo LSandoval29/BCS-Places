@@ -150,8 +150,18 @@ function getInfoPlace(id){
 		descripcion_place.innerHTML = respuesta.data[0].descripcion;
 		domicilio_place.innerHTML = respuesta.data[0].direccion;
 		num_place.innerHTML = respuesta.data[0].numTelefono;
-		web_place.innerHTML = respuesta.data[0].paginaWeb;
 		horario_place.innerHTML = respuesta.data[0].horario;
+
+		if(respuesta.data[0].paginaWeb != null){
+
+			web_place.innerHTML = respuesta.data[0].paginaWeb
+
+			if(respuesta.data[0].paginaWeb === 'No disponible.'){
+				web_place.href = "#"
+			}else{
+				web_place.href = respuesta.data[0].paginaWeb
+			}
+		}
 
 	}).catch(err => console.log(err));
 }

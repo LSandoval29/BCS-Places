@@ -12,8 +12,7 @@
     <!--CDN DE BOOTSTRAP-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<!--Fontawesome-->
-	 <!-- Font awesome -->
-	 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<title>BCS Places </title>
 </head>
 <body>
@@ -25,13 +24,15 @@
 			<img id ="img-lugar" alt="image" class="list-group-item col-sm-6">
 		</div>
 		<ul class="list-group">
-		  <li class="col-sm-6 list-group-item "style="background-color:#2898bf;"><h3 class="h3" id="name-lugar"></h3></li>
-		  <li class="col-sm-6 list-group-item"><h7 class="h5" id="name-category"></h7></li>
-		  <li class="col-sm-6 list-group-item" id="descripcion-place"></li>
-		  <li class="col-sm-6 list-group-item" id="domicilio-place"></li>
-		  <li class="col-sm-6 list-group-item" id="num-place"></li>
-		  <li class="col-sm-6 list-group-item nav-item" id="web-place"><a class="nav-link" href="#"></a></li>
-		  <li class="col-sm-6 list-group-item" id="horario-place"></li>
+		  <li class="col-sm-6 list-group-item "style="background-color:#2898bf;"><h3 class="h3 m-0 font-weight-bold" id="name-lugar"></h3></li>
+		  <li class="col-sm-6 list-group-item"><h7 class="h5 text-muted" id="name-category"></h7></li>
+		  <li class="col-sm-6 list-group-item"><label id="descripcion-place" style="color:#a9a9a9;"></label></li>
+		  <li class="col-sm-6 list-group-item"><label id="domicilio-place" style="color:#a9a9a9;"></label></li>
+		  <li class="col-sm-6 list-group-item"><label id="num-place" style="color:#a9a9a9;">></label></li>
+		  <li class="col-sm-6 list-group-item nav-item">
+		  	<a target="_blank" id="web-place"></a>
+		  </li>
+		  <li class="col-sm-6 list-group-item"><label id="horario-place" style="color:#a9a9a9;"></label></li>
 		</ul>
 	</div>
 	
