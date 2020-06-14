@@ -7,8 +7,8 @@
 .marker {
 	background-image: url('../imagenes/marcador.png');
 	background-size: cover;
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 	cursor: pointer;
 	z-index: 200;

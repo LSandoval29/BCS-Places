@@ -20,19 +20,20 @@
 
 	<div id="map"></div>
 	<div class="list-group float-left" id="sidebar-places">
-		<div class="sidebar">
+		<div>
 			<img id ="img-lugar" alt="image" class="list-group-item col-sm-6">
 		</div>
 		<ul class="list-group">
 		  <li class="col-sm-6 list-group-item "style="background-color:#2898bf;"><h3 class="h5 m-0 font-weight-bold" id="name-lugar"></h3></li>
 		  <li class="col-sm-6 list-group-item"><h7 class="h5 text-muted" id="name-category"></h7></li>
-		  <li class="col-sm-6 list-group-item"><label id="descripcion-place" style="color:#a9a9a9;"></label></li>
-		  <li class="col-sm-6 list-group-item"><label id="domicilio-place" style="color:#a9a9a9;"></label></li>
-		  <li class="col-sm-6 list-group-item"><label id="num-place" style="color:#a9a9a9;">></label></li>
+		  <li class="col-sm-6 list-group-item"><i class="fas fa-audio-description"> </i> <label id="descripcion-place" style="color:#a9a9a9;"></label></li>
+		  <li class="col-sm-6 list-group-item"><i class="fas fa-map-marker-alt"> </i> <label id="domicilio-place" style="color:#a9a9a9;"></label></li>
+		  <li class="col-sm-6 list-group-item"><i class="fas fa-phone"> </i> <label id="num-place" style="color:#a9a9a9;">></label></li>
 		  <li class="col-sm-6 list-group-item nav-item">
-		  	<a target="_blank" id="web-place"></a>
+		  	<i class="fas fa-globe-americas"> </i> 
+			  <a target="_blank" id="web-place"></a>
 		  </li>
-		  <li class="col-sm-6 list-group-item"><label id="horario-place" style="color:#a9a9a9;"></label></li>
+		  <li class="col-sm-6 list-group-item"><i class="fas fa-clock"> </i> <label id="horario-place" style="color:#a9a9a9;"></label></li>
 		</ul>
 	</div>
 	
