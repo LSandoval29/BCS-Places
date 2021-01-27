@@ -22,7 +22,7 @@ Route::get('/lugares.crear', 'lugarController@index')->name('lugares.crear');//R
 
 
 //Municipios:
-Route::get('/municipios/', 'MunicipioController@index')->name('municipio');//Ruta para mostrar la tabla del crud de municipios
+Route::get('/municipios/', 'MunicipioController@index')->name('municipios');//Ruta para mostrar la tabla del crud de municipios
 
 //Rutas de tipo API:
 Route::get('/municipio/{id}', 'LugarController@getPlacesByMunicipio')->name('lugar_municipio');//Ruta para obtener los lugares que pertenecen a un municipio especifico(Vista)

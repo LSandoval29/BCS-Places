@@ -19,8 +19,12 @@ class LugarController extends Controller{
     }
     //Funcion para hacer la consulta de los lugares que pertenecen a el municipio clickeado:
     public function getPlacesByMunicipio($id){
+        $categorias = Categoria::All();
+        $municipios = Municipio::All();
+        $municipio = Municipio::where('id', $id)->first();
         $lugares = Lugar::where('municipioId', $id)->with('municipio')->get();//obtengo los lugares que pertenecen al municipio 
-        return view('admin.lugares_crud',compact('lugares'));
+        #return $municipio;
+        return view('admin.lugares_crud',compact('lugares','categorias','municipios','municipio'));
     }
 
     //Funcion para obtener todos los lugares:
@@ -62,13 +66,14 @@ class LugarController extends Controller{
 
         $lugar->save();
         
-        return back()->with('mensaje','Lugar agregado con exíto.');
+        return back()->with('message','Lugar agregado con éxito!.');
     }
 
     public function editar($id){
-
+        $categorias = Categoria::All();
+        $municipios = Municipio::All();
         $lugar = Lugar::findOrFail($id);
-        return view('admin.lugares_editar',compact('lugar'));
+        return view('admin.lugares_editar',compact('lugar','categorias','municipios'));
     }
 
     public function update(Request $request, $id){
@@ -96,7 +101,7 @@ class LugarController extends Controller{
         $lugarActualizado->longitud = $request->longitud;
 
         $lugarActualizado->save();
-        return back()->with('mensaje','Lugar actualizado con exíto.');
+        return back()->with('message','Lugar actualizado con exíto.');
 
 
     }
@@ -107,7 +112,7 @@ class LugarController extends Controller{
 
         $lugarEliminado->delete();
 
-        return back()->with('mensaje','Lugar eliminado con exíto.');
+        return back()->with('message','Lugar eliminado con exíto.');
 
     }
 }

@@ -41,8 +41,8 @@
 		  <button type="button" class="list-group-item list-group-item-action" style="background-color:#2898bf;">
 		  	<h3 class="h5 m-0 font-weight-bold">Categorias</h3>
 		  </button>
-		  <button onclick="markersByCategory(1)"  class="list-group-item list-group-item-action">Hoteles</button>
-		  <button onclick="markersByCategory(2)"  class="list-group-item list-group-item-action">Restaurantes</button>
+		  <button onclick="markersByCategory(1)" class="list-group-item list-group-item-action">Hoteles</button>
+		  <button onclick="markersByCategory(2)" class="list-group-item list-group-item-action">Restaurantes</button>
 		  <button onclick="markersByCategory(3)" class="list-group-item list-group-item-action">Cines</button>
 		  <button onclick="markersByCategory(4)" class="list-group-item list-group-item-action">Escuelas</button>
 		  <button onclick="markersByCategory(5)" class="list-group-item list-group-item-action">Estadios</button>
@@ -51,7 +51,6 @@
 		  <button onclick="markersByCategory(8)" class="list-group-item list-group-item-action">Playas</button>
 		  <button onclick="markersByCategory(9)" class="list-group-item list-group-item-action">Clubes Nocturnos</button>
 	</div>
-
 
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

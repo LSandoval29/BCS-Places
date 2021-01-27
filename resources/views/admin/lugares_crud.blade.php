@@ -7,28 +7,28 @@
 @endsection
 
 @section('content')
-<div class="container-fluid mb-5">
-
-  <div class="card shadow mb-4">
-      <div class="card-header">
+<div class="card mb-4">
+    <div class="card-header">
         <div class="row">
             <div class="col-md-6">
-                <h3 class="m-0 font-weight-bold" style="color:#2898bf;">Lugares Registrados</h3>
+                <h3 class="m-0 font-weight-bold" style="color:#2898bf;">Lugares Registrados en {{$municipio->nombre}}</h3>
             </div>
             <div class="col-md-6">
-                <a href="{{ route('lugares.crear') }}" class="btn btn-info float-right"><i class="fas fa-plus"></i> Agregar</a>
+                <button class="btn btn-success btn-icon-split m-0 float-right"
+                data-toggle="modal" data-target="#mymodal" title="Agregar nuevo">
+                    
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus-circle"></i>
+                        Nuevo
+                    </span>
+                </button>           
             </div>
         </div>
-      </div>
-      <div class="col-md-12">
-         @if(session('mensaje'))
-            <div class="alert alert-success">
-                {{session('mensaje')}}
-            </div>
-         @endif
+    </div>
+    <div class="col-md-12">
         <div class="card-body">
             <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                     <th>Categoria</th>
@@ -66,13 +66,18 @@
                         <td>{{$lugar->descripcion}}</td>
                         <td>
                             <div class="row">
-                                <a href="{{ route('editar_lugar',$lugar) }}" class="btn btn-warning btn-sm"><i class="fas fa-exclamation-triangle"></i></a>
-
-                                <form action="{{route('eliminar_lugar', $lugar)}}" method="POST" class="d-inline">
+                                <div class="col-md-6">
+                                    <a href="{{ route('editar_lugar',$lugar) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                </div>
+                                <div class="col-md-6">
+                                    <form action="{{route('eliminar_lugar', $lugar)}}" method="POST" class="d-inline">
                                     @method('DELETE')
                                     @csrf
-                                    <button class="btn btn-danger btn-sm" type="submit" ><i class="fas fa-trash"></i></button>
-                                </form>
+                                        <button class="btn btn-danger btn-sm" type="submit" >
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                     </form>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -82,9 +87,7 @@
             </table>
             </div>
         </div>
-      </div>
-  </div>
-  
+    </div>
 </div>
 @endsection
 
@@ -97,6 +100,109 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="{{ asset('app_assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
+@endsection
+
+@section('modals')
+<!--Modal de Agregar-->
+<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <form action="{{ route('agregar_lugar') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="modal-body">
+                <input type="hidden" name="municipioId" value="{{$municipio->id}}">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Categoria:</label>
+                    <div class="input-group mb-3">
+                        <select class="form-control" name="categoriaId" required>
+                            <option value="" disabled selected>Seleccione la categoria...</option>
+                            @foreach($categorias as $categoria)
+                                <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nombre:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Direccion:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="text" name="direccion" id="direccion" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Pagina web:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="text" name="paginaWeb" id="paginaWeb" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Horario:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="text" name="horario" id="horario" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Télefono:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="text" name="numTelefono" id="numTelefono" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Descripción:</label>
+                    <div class="input-group mb-3">
+                        <textarea class="form-control" required name="descripcion"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Imagen:</label>
+                    <div class="input-group mb-3">
+                    
+                        <input type="file" name="imagen" id="imagen" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Latitud:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="number" name="latitud" id="latitud" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Longitud:</label>
+                    <div class="input-group mb-3">
+                        
+                        <input type="number" name="longitud" id="longitud" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                    Cancelar
+                    </button>
+                    <button class="btn btn-primary" type="submit">
+                        Agregar
+                    </button>
+                </div>            
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
 @endsection
 
 

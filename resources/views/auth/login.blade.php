@@ -45,7 +45,7 @@
                 @enderror    
 
                 <button type="submit" class="btn btn-light">
-                        {{ __('Iniciar Sesión') }}
+                        {{ __('Login') }}
                 </button>
             </div>
         </div>

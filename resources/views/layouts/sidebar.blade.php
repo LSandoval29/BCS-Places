@@ -3,7 +3,7 @@
 style="background: #2898bf;">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{URL::to('/home')}}">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{URL::to('/municipios')}}">
     <div class="card-body box-profile">
       <img class="img-fluid  rounded-circle"
           src="{{asset('app_assets/imagenes/map.png') }}"
@@ -14,10 +14,7 @@ style="background: #2898bf;">
 <!-- Divider -->
 <hr class="sidebar-divider">
 
-<!-- Divider -->
-<hr class="sidebar-divider">
-
-<li class="nav-item {{ (request()->is('users*')) ? 'active' : '' }}">
+<li class="nav-item {{ (request()->is('municipios*')) ? 'active' : '' }}">
   <a class="nav-link" href="{{URL::to('/municipios')}}">
   <i class="fas fa-place-of-worship"></i>
   <span>Municipios</span></a>

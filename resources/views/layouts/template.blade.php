@@ -27,11 +27,14 @@
 
           <!-- Page Heading -->
           <div class="row">
-            <div class="col-12">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">@yield('title')</h1>
+            </div>
+            <div class="col-sm-6">
               
-              @if (session('success'))
+              @if (session('message'))
               <div class="alert alert-success" role="alert">
-                <strong>Muy bien!</strong> El proceso a terminado satisfactoriamente!.
+                <strong>{{session('message')}}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -40,7 +43,7 @@
 
               @if (session('error'))
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong> El proceso no ha terminado, verifica tu información!.
+                <strong>Error!</strong> {{session('error')}}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -75,6 +78,8 @@
   @include('layouts.scripts')
 
   @yield('scripts')
+
+  @yield('modals')
 
 </body>
 

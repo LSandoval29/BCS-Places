@@ -11,6 +11,7 @@ let horario_place = document.getElementById("horario-place");
 let sidebar = document.querySelector(".sidebar");
 let sidebar_places = document.getElementById("sidebar-places");
 let categories = document.getElementById("categories");
+let modal = document.getElementById("exampleModal");
 var map = null;
 var markers = null;
 var cityActual = null;
@@ -80,7 +81,7 @@ function makeMarkers(city_id) {
             const places = respuesta.data;
 
             for (const lugar of places) {
-                let el = document.createElement("div");
+                let el = document.createElement("div");//Creamos el div en el que ira el marcador
                 el.className = "marker";
                 //el.style.backgroundImage = url('./imagenes/estadio.png');
                 let oneMarker = new mapboxgl.Marker(el)
@@ -112,7 +113,7 @@ function clickCity() {
             ocultarSidebar();//Ocultamos el sidebar y categorias cuando le de click a otra city.
             cleanMarkers(); //Limpiamos los marcadores para que no aparezcan al seleccionar otra ciudad
 
-            //Despues de 10 segundo aparecera el card de categories:
+            //Despues de 10 segundos aparecera el card de categories:
             setTimeout(function () {
                 categories.style.display = "block";
             }, 10000);
@@ -164,8 +165,8 @@ function markersByCategory(id_category) {
                     .addTo(map);
 
                 el.addEventListener("click", function () {
-                    sidebar_places.style.display = "block";
-                    getInfoPlace(lugar.id);
+                    sidebar_places.style.display = "block";//Ponemos el sidebar visible al hacer click en el lugar
+                    getInfoPlace(lugar.id);//Se obtiene la info del lugar seleccionado
                 });
 
                 currentMarkers.push(oneMarker); //Agregamos al arreglo los marcadores
