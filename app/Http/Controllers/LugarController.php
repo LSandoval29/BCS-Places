@@ -12,6 +12,11 @@ class LugarController extends Controller{
     public function index(){
         return view('admin.lugares_crear');
     }
+
+    public function view_options(){
+        return view('admin.options');
+    }
+
     //Funcion para hacer la consulta de los lugares que pertenecen a el municipio clickeado:
     public function getPlaces($id){
         $lugares = Lugar::where('municipioId', $id)->get();//obtengo los lugares que pertenecen al municipio 
@@ -106,13 +111,28 @@ class LugarController extends Controller{
 
     }
 
-    public function delete($id){
+    public function destroy($id){
 
-        $lugarEliminado = Lugar::findOrFail($id);
+        $lugarEliminado = Lugar::find($id);
 
-        $lugarEliminado->delete();
+            if($lugarEliminado){
 
-        return back()->with('message','Lugar eliminado con exíto.');
+                if($lugarEliminado->delete()){
+
+                    return response()->json([
+                        'message' => "Registro Eliminado correctamente",
+                        'code' => 2,
+                        'data' => null
+                    ], 200);
+
+                }
+            }
+
+            return response()->json([
+                'message' => "No se ha podido eliminar",
+                'code' => -2,
+                'data' => null
+            ], 200);
 
     }
 }

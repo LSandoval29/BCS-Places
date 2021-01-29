@@ -70,13 +70,9 @@
                                     <a href="{{ route('editar_lugar',$lugar) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                 </div>
                                 <div class="col-md-6">
-                                    <form action="{{route('eliminar_lugar', $lugar)}}" method="POST" class="d-inline">
-                                    @method('DELETE')
-                                    @csrf
-                                        <button class="btn btn-danger btn-sm" type="submit" >
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                     </form>
+                                    <button onclick="deleteThis({{$lugar->id}},this)" class="btn btn-danger btn-sm"     data-toggle="tooltip" data-placement="top">
+                                        <b><i class="fas fa-trash"></i></b>
+                                    </button>
                                 </div>
                             </div>
                         </td>
@@ -89,17 +85,6 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<!-- Page level plugins -->
-<script src="{{ asset('app_assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('app_assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-<!-- Page level custom scripts -->
-<script src="{{ asset('app_assets/js/demo/datatables-demo.js') }}"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="{{ asset('app_assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
 @endsection
 
 @section('modals')
@@ -203,6 +188,60 @@
       </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<!-- Page level plugins -->
+<script src="{{ asset('app_assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('app_assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ asset('app_assets/js/demo/datatables-demo.js') }}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{{ asset('app_assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
+
+<script type="text/javascript">
+
+    function deleteThis(id,button){
+        //console.log(id);
+        Swal.fire({
+            title: 'Desea eliminar este registro?',
+            text: "El registro sera eliminado!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `/eliminar_lugar/${id}`,
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    success: function(data){
+                        if (data.code>0) {
+                            Swal.fire(
+                                'Eliminado!',
+                                'Registro eliminado correctamente.',
+                                'success'
+                            )
+                        .then((value) => {
+                            $(button).parent().parent().parent().fadeOut()
+                        })
+                        }else{
+                            swal("Error","No encontramos lo que buscaba!","error")
+                        }
+                    }
+                });
+            
+                }
+            })
+    }
+
+
+</script>
 @endsection
 
 

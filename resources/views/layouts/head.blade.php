@@ -13,3 +13,6 @@
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('app_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+  <!--SweetAlert CDN-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

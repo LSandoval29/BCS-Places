@@ -27,10 +27,10 @@
 
           <!-- Page Heading -->
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
               <h1 class="m-0 text-dark">@yield('title')</h1>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               
               @if (session('message'))
               <div class="alert alert-success" role="alert">
@@ -77,9 +77,10 @@
 
   @include('layouts.scripts')
 
+  @yield('modals')
+
   @yield('scripts')
 
-  @yield('modals')
 
 </body>
 

@@ -29,6 +29,10 @@
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
           @csrf
       </form>
+      <a class="dropdown-item" href="{{ route('options') }}">
+        <i class="fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+        {{ __('Opciones') }}
+      </a>
     </div>
   </li>
 

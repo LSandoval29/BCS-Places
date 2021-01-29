@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Municipio;
 use Illuminate\Http\Request;
+use App\User;
 
-class MunicipioController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,12 @@ class MunicipioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {//Consultar todos los municipios registrados:
-        $municipios = Municipio::all();//Obtenemos todos los municipios de la bdd.
-        $section_name = "Municipios";
-        return view('admin.index',compact('municipios','section_name'));//Lo pasamos ala vista con el metodo compact.
-        
+    {
+        $users = User::paginate(3);
+
+        if($users){
+            return view('admin.users_index',compact('users'));
+        }
     }
 
     /**
@@ -37,48 +38,50 @@ class MunicipioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        $municipio = Municipio::create($request->all());
-
-        if($municipio){
-          return redirect()->back()->with('message','Registro agregado con éxito');
-        }
-        return redirect()->back()->with('error','error servidor');
-    }
-
-    public function get($id)
     {
-        $municipio = Municipio::where('id',$id)
-                     ->first();
+       return $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+       ]);
 
-            if($municipio){
+       $request['password'] = bcrypt($request['password']);//Ciframos la contraseña que recibimos
+       $newUser = User::create($request->all());
 
-                return response()->json([
-                    'message' => "Registro consultado correctamente",
-                    'code' => 4,
-                    'data' => $municipio
-                ], 200);
-            }   
+       if($newUser){
+         return redirect()->back()->with('message','Registro agregado con éxito');
+       }
+       return redirect()->back()->with('error','error servidor');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Municipio  $municipio
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Municipio $municipio)
+    public function get($id)
     {
-        //
+        $user = User::where('id',$id)
+                     ->first();
+
+            if($user){
+
+                return response()->json([
+                    'message' => "Registro consultado correctamente",
+                    'code' => 4,
+                    'data' => $user
+                ], 200);
+            }   
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Municipio  $municipio
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Municipio $municipio)
+    public function edit($id)
     {
         //
     }
@@ -87,14 +90,14 @@ class MunicipioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Municipio  $municipio
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $municipio = Municipio::where('id',$request->id)->first();
+        $user = User::where('id',$request->id)->first();
 
-        if($municipio->update($request->all())){
+        if($user->update($request->all())){
 
             //Redireccion
             return redirect()->back()->with('message','Registro actualizado con éxito');
@@ -102,21 +105,32 @@ class MunicipioController extends Controller
         }
 
         return redirect()->back()->with('error','error servidor');
+
+    }
+
+    public function update_password(Request $request)
+    {
+        $user = User::where('id',$request->id)->first();
+        $user->password = bcrypt($request->password);
+    
+        $user->save();
+
+        return redirect()->back()->with('message','Contraseña actualizada con éxito');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Municipio  $municipio
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $municipio = Municipio::find($id);
+        $user = User::find($id);
 
-            if($municipio){
+            if($user){
 
-                if($municipio->delete()){
+                if($user->delete()){
 
                     return response()->json([
                         'message' => "Registro Eliminado correctamente",
@@ -133,5 +147,4 @@ class MunicipioController extends Controller
                 'data' => null
             ], 200);
     }
-    
 }

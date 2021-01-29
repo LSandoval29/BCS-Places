@@ -20,6 +20,12 @@ style="background: #2898bf;">
   <span>Municipios</span></a>
 </li>
 
+<li class="nav-item {{ (request()->is('users*')) ? 'active' : '' }}">
+  <a class="nav-link" href="{{URL::to('/users')}}">
+  <i class="fas fa-users"></i>
+  <span>Usuarios</span></a>
+</li>
+
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 
